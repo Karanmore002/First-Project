@@ -1,0 +1,31 @@
+/* CSS for Next Button */
+.next-button {
+  position: fixed; /* Keeps the button fixed at the bottom */
+  bottom: 20px; /* Spacing from the bottom */
+  right: 20px; /* Spacing from the right */
+  background-color: #ea2c74; /* Button background color */
+  color: white; /* Button text color */
+  font-size: 16px; /* Text size */
+  font-weight: bold; /* Bold text */
+  padding: 12px 24px; /* Padding around the text */
+  border: none; /* Removes border */
+  border-radius: 8px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+  transition: transform 0.3s ease, background-color 0.3s ease; /* Animation for hover effects */
+  z-index: 1000; /* Ensures it stays on top */
+}
+
+.next-button:hover {
+  transform: translateY(-4px); /* Moves button up slightly on hover */
+  background-color: #d02363; /* Darker shade on hover */
+}
+
+.next-button:active {
+  transform: translateY(2px); /* Slight push-down effect on click */
+}
+
+.next-button::before {
+  content: '\25B6'; /* Unicode for right arrow */
+  margin-right: 8px; /* Spacing between arrow and text */
+}

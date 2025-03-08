@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Map with Zig-Zag Line and Location Dots</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="style1.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Map Container */
+    .map-container {
+      margin-top: 0px;
+    }
+
+    .map-container img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .location-dot {
+      position: absolute;
+      font-size: 40px;
+      color: #ea2c74;
+    }
+
+    .location {
+      position: absolute;
+      font-weight: bold;
+      color: black;
+    }
+
+    #kalyan-dot {
+      top: 330px;
+      left: 520px;
+    }
+
+    #lonavala-dot{
+      top: 500px;
+      left: 650px;
+    }
+
+    #kalyan-label {
+      top: 300px;
+      left: 510px;
+    }
+
+    #mumbai-label {
+      top: 300px;
+      left: 380px;
+    }
+
+    #pune-label {
+      top: 545px;
+      left: 650px;
+    }
+
+    #lonavala-label {
+      top: 410px;
+      right: 530px;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+    }
+
+    .duration {
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+      background-color: #f8f8f8;
+      padding: 10px 0;
+      border-bottom: 2px solid #ccc;
+      animation: fadeIn 2s ease-in-out;
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <div class="logo" style="background-color: #ddd; padding: 0px; border-radius: 8px;">Maharashtra Bus</div>
+    <div>
+          <a href="index.html">Home</a>
+          <a href="explore.html">Explore</a>
+          <a href="review.html">Review</a>
+          <a href="contact.html">Contact</a>
+    </div>
+</div>
+
+<div class="duration">Duration from Pune to Mumbai
+  : 3 Hr <br>Length: 150 KM </div>
+
+
+  <!-- Background Map -->
+  <div class="map-container">
+    <img src="assets/city.jpg" alt="City Map">
+  </div>
+
+  <!-- Gadhinglaj Marker and Label -->
+  <i id="lonavala-dot" class="fa-solid fa-location-dot location-dot"></i>
+  <i id="kalyan-dot" class="fa-solid fa-location-dot location-dot"></i>
+  <div id="mumbai-label" class="location">Mumbai</div>
+  <div id="pune-label" class="location">Pune</div>
+  <div id="lonavala-label" class="location">Lonavala</div>
+  <div id="kalyan-label" class="location">Kalyan</div>
+
+  <canvas id="lineCanvas"></canvas>
+
+  <button class="next-button" onclick="location.href='pune-mum.html'">Next</button>
+
+  <script>
+    // Draw Zig-Zag Line on Canvas
+    function drawZigZagLine() {
+  const canvas = document.getElementById('lineCanvas');
+  const ctx = canvas.getContext('2d');
+
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  // Adjust coordinates for the line points
+  const points = [
+    { x: 400, y: 360 }, // Pune
+    { x: 535, y : 370}, // Lonavala
+    { x: 584, y: 478 }, // Kalyan
+    { x: 665, y: 540}  // Mumbai
+  ];
+
+  ctx.beginPath();
+  ctx.moveTo(points[0].x, points[0].y);
+  points.forEach(point => ctx.lineTo(point.x, point.y));
+  ctx.strokeStyle = 'red';
+  ctx.lineWidth = 3;
+  ctx.stroke();
+}
+
+window.onload = drawZigZagLine;
+window.onresize = drawZigZagLine;
+  </script>
+</body>
+</html>

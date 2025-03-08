@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Map with Zig-Zag Line and Location Dots</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style1.css">
+  <style>
+    .map-container {
+      margin-top: 0px;
+    }
+    
+    .map-container img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .location-dot {
+      position: absolute;
+      font-size: 40px;
+      color: #ea2c74;
+    }
+
+    .location {
+      position: absolute;
+      font-weight: bold;
+      color: black;
+    }
+
+    #nipani-dot {
+      top: 220px;
+      left: 205px;
+    }
+
+    #nipani-label {
+      top: 280px;
+      left: 195px;
+    }
+
+    #gadhinglaj-label {
+      top: 270px;
+      left: 70px;
+    }
+
+    #kolhapur-label {
+      top: 410px;
+      left: 550px;
+    }
+
+    #kagal-label {
+      top: 290px;
+      left: 385px;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+    }
+
+    .duration {
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+      background-color: #f8f8f8;
+      padding: 10px 0;
+      border-bottom: 2px solid #ccc;
+      animation: fadeIn 2s ease-in-out;
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <div class="logo" style="background-color: #ddd; padding: 0px; border-radius: 8px;">Maharashtra Bus</div>
+    <div>
+          <a href="index.html">Home</a>
+          <a href="explore.html">Explore</a>
+          <a href="review.html">Review</a>
+          <a href="contact.html">Contact</a>
+    </div>
+</div>
+<div class="duration">Duration from Kolhapur to Gadhinglaj: 1 Hr 30 Mins <br> Length: 65 KM</div>
+  <div class="map-container">
+    <img src="assets/city.jpg" alt="City Map">
+  </div>
+
+  <!-- Gadhinglaj Marker and Label -->
+  <i id="nipani-dot" class="fa-solid fa-location-dot location-dot"></i>
+  <div id="gadhinglaj-label" class="location">Gadhinglaj</div>
+
+  <!-- Kolhapur Marker and Label -->
+  <div id="kolhapur-label" class="location">Kolhapur</div>
+  <div id="nipani-label" class="location">Nipani</div>
+  <div id="kagal-label" class="location">Kagal</div>
+
+  <canvas id="lineCanvas"></canvas>
+
+  <button class="next-button" onclick="location.href='kol-gadhi.html'">Next</button>
+
+  <script>
+      function drawZigZagLine() {
+      const canvas = document.getElementById('lineCanvas');
+      const ctx = canvas.getContext('2d');
+
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const x1 = 105, y1 = 338;
+      const x2 = 585, y2 = 480;
+      const points = [{ x: 218, y: 260 }, { x: 406, y: 360 }, { x: 450, y: 385 }];
+
+      ctx.beginPath();
+      ctx.moveTo(x1, y1);
+      points.forEach(point => ctx.lineTo(point.x, point.y));
+      ctx.lineTo(x2, y2);
+      ctx.strokeStyle = 'red';
+      ctx.lineWidth = 3;
+      ctx.stroke();
+    }
+    window.onload = drawZigZagLine;
+    window.onresize = drawZigZagLine;
+  </script>
+</body>
+</html>

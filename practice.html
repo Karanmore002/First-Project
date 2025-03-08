@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+    <script src="https://js.api.here.com/v3/3.1/mapsjs-core.js"
+    type="text/javascript" charset="utf-8"></script>
+    <script src="https://js.api.here.com/v3/3.1/mapsjs-service.js"
+    type="text/javascript" charset="utf-8"></script>
+    <script src="https://js.api.here.com/v3/3.1/mapsjs-ui.js"
+    type="text/javascript" charset="utf-8"></script>
+    <link rel="stylesheet" href="https://js.api.here.com/v3/3.1/mapsjs-ui.css" />
+  </head>
+  <body>
+    <div style="width: 640px; height: 480px" id="mapContainer"></div>
+    <script>
+      // Initialize the platform object
+      var platform = new H.service.Platform({
+        'apikey': 'z8xLdpTXKAA5uGXwtsEep5PVh3CMYKxDPdGH2SDvPIc'
+      });
+
+      // Obtain the default map types from the platform object
+      var maptypes = platform.createDefaultLayers();
+
+      // Instantiate (and display) the map
+      var map = new H.Map(
+        document.getElementById('mapContainer'),
+        maptypes.vector.normal.map,
+        {
+          zoom: 5,
+          center: { lng: 78.9629, lat: 20.5937 } // Center of India
+        }
+      );
+
+      // Enable map interaction
+      var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
+      var ui = H.ui.UI.createDefault(map, maptypes);
+
+      // List of cities with their coordinates
+      var cities = [
+        { name: "Mumbai", lat: 19.076, lng: 72.8777 },
+        { name: "Delhi", lat: 28.7041, lng: 77.1025 },
+        { name: "Bengaluru", lat: 12.9716, lng: 77.5946 },
+        { name: "Hyderabad", lat: 17.385, lng: 78.4867 },
+        { name: "Chennai", lat: 13.0827, lng: 80.2707 },
+        { name: "Kolkata", lat: 22.5726, lng: 88.3639 },
+        { name: "Pune", lat: 18.5204, lng: 73.8567 },
+        { name: "Jaipur", lat: 26.9124, lng: 75.7873 },
+        { name: "Ahmedabad", lat: 23.0225, lng: 72.5714 },
+        { name: "Kolhapur", lat: 16.705, lng: 74.2433 }
+      ];
+
+      // Add markers to the map
+      cities.forEach(function(city) {
+        var marker = new H.map.Marker({ lat: city.lat, lng: city.lng });
+        marker.setData(city.name);
+        marker.addEventListener('tap', function(evt) {
+          var bubble = new H.ui.InfoBubble(evt.target.getGeometry(), {
+            content: evt.target.getData()
+          });
+          ui.addBubble(bubble);
+        });
+        map.addObject(marker);
+      });
+    </script>
+  </body>
+</html>

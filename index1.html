@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>A simple Three.JS App</title>
+    <!-- <link rel="stylesheet" href="style.css" /> -->
+    <script src="https://cdn.babylonjs.com/babylon.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babylonjs/7.34.2/babylon.js" integrity="sha512-lkQG5+k0dNOOBl6re5W9R2okxk21VBfuGRe9EumCtL0WbQlQXhxyCPnph8+NrMkVheNRBf5GXhGrVy6HrIPv3w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.babylonjs.com/loaders/babylon.glTF2FileLoader.min.js"></script>
+    
+  </head>
+  <body>
+    <div id="destination-info">
+      <!-- <h2>Selected Route:</h2> -->
+      <p id="from"></p>
+      <p id="to"></p>
+  </div>
+
+  <canvas id="renderCanvas" style="width: 100%; height: 100%;"></canvas>
+
+  <script>
+      // Function to get URL parameters
+      function getQueryParams() {
+          const params = {};
+          const parser = new URL(window.location.href);
+          const query = parser.search.substring(1).split('&');
+          query.forEach(param => {
+              const [key, value] = param.split('=');
+              params[decodeURIComponent(key)] = decodeURIComponent(value);
+          });
+          return params;
+      }
+
+      // Display the values
+      const params = getQueryParams();
+      document.getElementById('from').textContent = `From: ${params.from}`;
+      document.getElementById('to').textContent = `To: ${params.to}`;
+  </script>
+    <script src="/practice.js"></script>
+    
+  </body>
+</html>

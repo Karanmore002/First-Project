@@ -1,0 +1,186 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Map with Zig-Zag Line and Location Dots</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style1.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      overflow-x: hidden;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: hsl(170, 86%, 83%);;
+      padding: 10px 20px;
+      border-bottom: 2px solid #ccc;
+      position: relative;
+      z-index: 10;
+    }
+
+    .navbar a {
+      text-decoration: none;
+      margin: 0 10px;
+      color: black;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
+
+    .navbar a:hover {
+      color: #ea2c74;
+    }
+
+    .duration {
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+      background-color: #f8f8f8;
+      padding: 10px 0;
+      border-bottom: 2px solid #ccc;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    .map-container {
+      margin-top: 0;
+    }
+
+    .map-container img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .location-dot {
+      position: absolute;
+      font-size: 40px;
+      color: #ea2c74;
+      animation: bounce 2s infinite;
+    }
+
+    .location {
+      position: absolute;
+      font-weight: bold;
+      color: black;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+    }
+
+    .next-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #ea2c74;
+      color: white;
+      padding: 10px 20px;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      z-index: 10;
+    }
+
+    .next-button:hover {
+      background-color: #c71c5c;
+    }
+
+    /* Animations */
+    /* @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    } */
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <div class="navbar">
+    <div class="logo" style="padding: 0px; border-radius: 8px;">Maharashtra Bus</div>
+    <div>
+      <a href="index.html">Home</a>
+      <a href="explore.html">Explore</a>
+      <a href="review.html">Review</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+
+  <!-- Duration Section -->
+  <div class="duration">Duration from Kolhapur to Pune: 5 Hours <br>Length: 240 Km</div>
+
+  <!-- Background Map -->
+  <div class="map-container">
+    <img src="assets/city.jpg" alt="City Map">
+  </div>
+
+  <!-- Location Markers and Labels -->
+  <i id="karad-dot" class="fa-solid fa-location-dot location-dot" style="top: 480px; left: 510px;"></i>
+  <i id="satara-dot" class="fa-solid fa-location-dot location-dot" style="top: 240px; left: 578px;"></i>
+  <div id="pune-label" class="location" style="top: 180px; left: 750px;">Pune</div>
+  <div id="kolhapur-label" class="location" style="top: 520px; left: 490px;">Kolhapur</div>
+  <div id="karad-label" class="location" style="top: 440px; left: 600px;">Karad</div>
+  <div id="satara-label" class="location" style="top: 220px; left: 570px;">Satara</div>
+
+  <!-- Canvas for Drawing Zig-Zag Line -->
+  <canvas id="lineCanvas"></canvas>
+
+  <!-- Next Button -->
+  <button class="next-button" onclick="location.href='kol-pune.html'">Next</button>
+
+  <!-- JavaScript for Drawing Zig-Zag Line -->
+  <script>
+    // Draw Zig-Zag Line on Canvas
+    function drawZigZagLine() {
+      const canvas = document.getElementById('lineCanvas');
+      const ctx = canvas.getContext('2d');
+
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      // Adjust coordinates for the line points
+      const points = [
+        { x: 525, y: 520 }, // Kolhapur 
+        { x: 585, y: 468 }, // Karad
+        { x: 594, y: 282 }, // Satara
+        { x: 730, y: 210 }  // Pune
+      ];
+
+      ctx.beginPath();
+      ctx.moveTo(points[0].x, points[0].y);
+      points.forEach(point => ctx.lineTo(point.x, point.y));
+      ctx.strokeStyle = 'red';
+      ctx.lineWidth = 3;
+      ctx.stroke();
+    }
+
+    window.onload = drawZigZagLine;
+    window.onresize = drawZigZagLine;
+  </script>
+</body>
+</html>

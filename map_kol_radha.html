@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Map with Zig-Zag Line and Location Dots</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="style1.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Map Container */
+    .map-container {
+      margin-top: 0px;
+    }
+
+    .map-container img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .location-dot {
+      position: absolute;
+      font-size: 40px;
+      color: #ea2c74;
+    }
+
+    .location {
+      position: absolute;
+      font-weight: bold;
+      color: black;
+    }
+
+    #bhogavati-dot {
+      top: 340px;
+      left: 600px;
+    }
+
+    #anaje-dot{
+      top: 280px;
+      left: 700px;
+    }
+
+    #bhogavati-label {
+      top: 320px;
+      left: 580px;
+    }
+
+    #radha-label {
+      top: 160px;
+      right: 380px;
+    }
+
+    #kolhapur-label {
+      top: 410px;
+      left: 550px;
+    }
+
+    #anaje-label {
+      top: 290px;
+      right: 380px;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+    }
+
+    .duration {
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+      background-color: #f8f8f8;
+      padding: 10px 0;
+      border-bottom: 2px solid #ccc;
+      animation: fadeIn 2s ease-in-out;
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <div class="logo" style="background-color: #ddd; padding: 0px; border-radius: 8px;">Maharashtra Bus</div>
+    <div>
+          <a href="index.html">Home</a>
+          <a href="explore.html">Explore</a>
+          <a href="review.html">Review</a>
+          <a href="contact.html">Contact</a>
+    </div>
+</div>
+
+<div class="duration">Duration from Kolhapur to Radhanagari
+  : 1 Hr 20 Mins <br>Length: 50 KM </div>
+
+  <!-- Background Map -->
+  <div class="map-container">
+    <img src="assets/city.jpg" alt="City Map">
+  </div>
+
+  <!-- Gadhinglaj Marker and Label -->
+  <i id="bhogavati-dot" class="fa-solid fa-location-dot location-dot"></i>
+  <i id="anaje-dot" class="fa-solid fa-location-dot location-dot"></i>
+  <div id="radha-label" class="location">Radhanagari</div>
+  <div id="kolhapur-label" class="location">Kolhapur</div>
+  <div id="bhogavati-label" class="location">Bhogavati</div>
+  <div id="anaje-label" class="location">Anaje</div>
+
+  <!-- Canvas for Drawing -->
+  <canvas id="lineCanvas"></canvas>
+
+  <!-- Next Button -->
+  <button class="next-button" onclick="location.href='kol-radha.html'">Next</button>
+
+  <script>
+    // Draw Zig-Zag Line on Canvas
+    function drawZigZagLine() {
+  const canvas = document.getElementById('lineCanvas');
+  const ctx = canvas.getContext('2d');
+
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  // Adjust coordinates for the line points
+  const points = [
+    { x: 586, y: 480 },  
+    { x: 614, y : 380}, 
+    { x: 716, y: 320 }, 
+    { x: 730, y: 220}  
+  ];
+
+  ctx.beginPath();
+  ctx.moveTo(points[0].x, points[0].y);
+  points.forEach(point => ctx.lineTo(point.x, point.y));
+  ctx.strokeStyle = 'red';
+  ctx.lineWidth = 3;
+  ctx.stroke();
+}
+
+window.onload = drawZigZagLine;
+window.onresize = drawZigZagLine;
+  </script>
+</body>
+</html>
